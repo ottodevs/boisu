@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :voice_messages
+  resources :voice_messages do
+    resources :comments
+  end
   root to: 'feed#index'
   get 'feed/index'
 
