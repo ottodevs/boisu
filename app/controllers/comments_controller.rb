@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     @voice_message = VoiceMessage.find(params[:voice_message_id])
     @comments = @voice_message.comments.create(comments_params)

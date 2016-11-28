@@ -48,3 +48,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Custom gems for the project
+gem 'devise'
