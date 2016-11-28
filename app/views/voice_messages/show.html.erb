@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @voice_message.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @voice_message.content %>
+</p>
+
+<%= link_to 'Edit', edit_voice_message_path(@voice_message) %> |
+<%= link_to 'Back', voice_messages_path %>

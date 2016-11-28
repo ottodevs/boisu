@@ -1,0 +1,2 @@
+class VoiceMessage < ApplicationRecord
+end
