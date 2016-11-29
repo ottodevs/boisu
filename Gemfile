@@ -49,3 +49,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Custom gems for the project
 gem 'devise'
+gem 'bootstrap', '~> 4.0.0.alpha5'
