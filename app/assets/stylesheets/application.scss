@@ -15,4 +15,5 @@
 // Do not use *equal require in Sass or your other stylesheets will not be able to access the Bootstrap mixins and variables. Use at import to import sass files
 
  // Custom bootstrap variables must be set or imported before bootstrap itself.
+@import "bootstrap-sprockets";
 @import "bootstrap";
