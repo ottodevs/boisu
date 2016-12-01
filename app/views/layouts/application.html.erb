@@ -2,14 +2,16 @@
 <html>
   <head>
     <title>Boisu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <div class="navigation-drawer-overlay"></div>
     <header>
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-fixed-top navbar-default">
         <div class="container">
           <div class="navbar-header">
             <div id="logo" class="navbar-brand">
@@ -17,7 +19,13 @@
             </div>
           </div>
 
-          <div id="nabvar-collapse" class="collapse navbar-collapse">
+          <!-- <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+          </form> -->
+
+          <div id="nabvar-collapse" class="navbar">
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
                 <li><%= link_to 'My account', '#' %></li>
@@ -32,17 +40,24 @@
       </nav>
     </header>
 
-    <div id="main" class="container">
+    <div id="main_content" class="container">
       <!-- classes for devise messages -->
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
 
-      <div id="container" class="col-md-9 center-block">
+      <div id="content" class="col-md-9 center-block">
         <%= yield %>
       </div>
     </div>
 
-    <!-- js stuff -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <footer class="footer navbar-fixed-bottom navbar-inverse">
+  <div class="container">
+    <p class="text-muted">Place sticky footer content here.</p>
+  </div>
+</footer>
+
+<!-- js stuff -->
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </body>
 </html>
