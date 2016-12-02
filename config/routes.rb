@@ -3,9 +3,13 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  resources :voice_messages do
-    resources :comments
-  end
+  #resources :user do
+    resources :voice_messages do
+      resources :comments
+    end
+  #end
+
+  #get '/voice_messages', to: 'voice_messages#index'
 
   root to: 'feed#index'
   get 'users/:id', to: 'users#show'

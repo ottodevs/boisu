@@ -4,7 +4,11 @@ class VoiceMessagesController < ApplicationController
   # GET /voice_messages
   # GET /voice_messages.json
   def index
-    @voice_messages = VoiceMessage.all
+    @voice_messages = if params[:user_id]
+       VoiceMessage.all
+    else
+      VoiceMessage.where(user_id: nil)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,12 +38,13 @@ class VoiceMessagesController < ApplicationController
   # POST /voice_messages
   # POST /voice_messages.json
   def create
+    #binding.pry
     @voice_message = VoiceMessage.new(voice_message_params)
 
     respond_to do |format|
       if @voice_message.save
-        format.html { redirect_to @voice_message, notice: 'Voice message was successfully created.' }
-        format.json { render :show, status: :created, location: @voice_message }
+        # format.html { redirect_to @voice_message, notice: 'Voice message was successfully created.' }
+        # format.json { render :show, status: :created, location: @voice_message }
       else
         format.html { render :new }
         format.json { render json: @voice_message.errors, status: :unprocessable_entity }
@@ -79,6 +84,6 @@ class VoiceMessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def voice_message_params
-      params.require(:voice_message).permit(:title, :content)
+      params.require(:voice_message).permit(:title, :content, :audio)
     end
 end

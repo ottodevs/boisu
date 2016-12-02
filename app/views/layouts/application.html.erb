@@ -4,28 +4,54 @@
     <title>Boisu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div class="navigation-drawer-overlay"></div>
     <header>
-      <nav class="navbar navbar-fixed-top navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <div id="logo" class="navbar-brand">
+      <nav class="nav-drawer">
+        <ul class="list-unstyled main-menu">
+          <!-- Navigation drawer -->
+          <li class="text-right"><a href="#" id="nav-close">X</a></li>
+          <li><a href="#">Menu One <span class="icon"></span></a></li>
+          <li><a href="#">Menu Two <span class="icon"></span></a></li>
+          <li><a href="#">Menu Three <span class="icon"></span></a></li>
+          <li><a href="#">Dropdown</a>
+            <ul class="list-unstyled">
+              <li class="sub-nav"><a href="#">Sub Menu One <span class="icon"></span></a></li>
+              <li class="sub-nav"><a href="#">Sub Menu Two <span class="icon"></span></a></li>
+              <li class="sub-nav"><a href="#">Sub Menu Three <span class="icon"></span></a></li>
+              <li class="sub-nav"><a href="#">Sub Menu Four <span class="icon"></span></a></li>
+              <li class="sub-nav"><a href="#">Sub Menu Five <span class="icon"></span></a></li>
+            </ul>
+          </li>
+          <li><a href="#">Menu Four <span class="icon"></span></a></li>
+          <li><a href="#">Menu Five <span class="icon"></span></a></li>
+        </ul>
+      </nav>
+
+      <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="navbar-header pull-left">
+          <a id="nav-expander" class="nav-expander fixed">
+            <!-- <i class="fa fa-bars fa-lg white"></i> -->
+            <div class="wrapper">
+              <svg class="burger" width="30px" height="30px">
+                <line class="top" type="burger" x1="0" y1="1" x2="30" y2="1" />
+                <line class="middle" type="burger" x1="0" y1="12" x2="30" y2="12" />
+                <line class="bottom" type="burger" x1="0" y1="23" x2="30" y2="23" />
+              </svg>
+            </div>
+          </a>
+          <div class="container">
+            <div class="navbar-brand">
               <%= link_to "Boisu", root_path %>
             </div>
           </div>
+        </div>
+      </nav>
+    </header>
 
-          <!-- <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-          </form> -->
-
-          <div id="nabvar-collapse" class="navbar">
+          <!--<div id="nabvar-collapse" class="navbar">
             <ul class="nav navbar-nav navbar-right">
               <% if user_signed_in? %>
                 <li><%= link_to 'My account', '#' %></li>
@@ -37,8 +63,7 @@
             </ul>
           </div>
         </div>
-      </nav>
-    </header>
+      </nav> -->
 
     <div id="main_content" class="container">
       <!-- classes for devise messages -->
@@ -51,10 +76,19 @@
     </div>
 
     <footer class="footer navbar-fixed-bottom navbar-inverse">
-  <div class="container">
-    <p class="text-muted">Place sticky footer content here.</p>
-  </div>
-</footer>
+      <div class="container">
+        <canvas class="visualizer" hidden></canvas>
+        <!-- <button class="record btn btn-circle btn-danger btn-xl">
+        </button> -->
+        <div class="record button">
+          <div class="btn-danger inner">
+            <div class="mic">
+              <i class="fa fa-microphone fa-lg"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
 
 <!-- js stuff -->
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

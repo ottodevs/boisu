@@ -1,20 +1,21 @@
-<h1>Record to MP3 Test</h1>
+<!-- <h1>Record to MP3 Test</h1> -->
 
-<h2>Upload audio file:
+<!-- <h2>Upload audio file:
 </h2>
 <input type="file" accept="audio/*;capture=microphone">
-<hr>
-<h2>Record from microphone:</h2>
+<hr> -->
+<!-- <h2>Record from microphone:</h2>
 <div class="wrapper">
   <section class="main-controls">
-    <canvas class="visualizer"></canvas>
     <div id="buttons">
-      <button class="record">Record</button>
+      <form id='form' action="/voice_messages" method="post">
       <button class="stop">Stop</button>
+      </form>
     </div>
-  </section>
-
+  </section> -->
+  <h2>Messages recorded:</h2>
   <section class="sound-clips">
   </section>
+  <%= link_to "View messages", voice_messages_path %>
 </body>
 </div>

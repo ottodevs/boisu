@@ -17,6 +17,7 @@
  // Custom bootstrap variables must be set or imported before bootstrap itself.
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
 // #logo {
 //   font-size: 26px;
@@ -57,6 +58,109 @@
 //   }
 // }
 
+// Center navbar brand
+.navbar-header {
+    float: left;
+    // padding-left: 15px;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {
+  float:none;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-transform: lowercase;
+  a {
+    color: #fff;
+  }
+}
+
+// Burger
+line {
+  transition: transform 0.2s;
+}
+.burger {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+.top[type="burger"] {
+  transform: rotate(0deg) translate(0px, 0px);
+}
+.middle[type="burger"] {
+  transform: translateX(0px);
+}
+.bottom[type="burger"] {
+  transform: rotate(0deg) translate(0px, 0px);
+}
+.top[type="close"] {
+  transform: rotate(45deg) translate(4px, -3px);
+}
+.middle[type="close"] {
+  transform: translateX(30px);
+}
+.bottom[type="close"] {
+  transform: rotate(-45deg) translate(-13px, -4px);
+}
+
+// record button
+// body {
+//   background-color: #2a406d;
+//   margin: 0;
+// }
+
+.footer {
+  // overflow: visible;
+  // height: 10%;
+}
+
+.button {
+  margin: 0 auto 0;
+  width: 75px;
+  height: 75px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.inner {
+  background-color: #9e1919;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  transform: scale(0.94);
+}
+
+.mic {
+  float: left;
+  text-align: center;
+  font-size: 26px;
+  width: 100%;
+  padding-top: 22%;
+  i {
+    color: #fff;
+  }
+}
+
+// .navbar-brand {
+//     float:none;
+//     font-size: 26px;
+//     font-weight: 700;
+//     letter-spacing: -1px;
+//     text-transform: lowercase;
+//     a {
+//       color: #fff;
+//     }
+//   }
+// }
+
+.button.active .inner {
+  transform: scale(0.5);
+  border-radius: 12%;
+}
+
+
 // Prevent screen bouncing when trying scroll at the top or bottom
 html {
     overflow: hidden;
@@ -64,6 +168,172 @@ html {
 }
 
 body {
-    height: 100%;
-    overflow: auto;
+  height: 100%;
+  overflow: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+// Navigation drawer
+a.nav-expander {
+  // background: none repeat scroll 0 0 #000000;
+  color: #FFFFFF;
+  display: block;
+  // font-size: 15px;
+  // font-weight: 400;
+  // // height: 50px;
+  // margin-left: 0;
+  padding: 1em 1em 1em;
+  position: absolute;
+  // left: 0;
+  // text-decoration: none;
+  // text-transform: uppercase;
+  // top: 0;
+  // transition: left 0.3s ease-in-out 0s;
+  // width: 130px;
+  z-index: 200;
+
+  // transition: left 0.3s ease-in-out 0s;
+  // -webkit-transition: left 0.3s ease-in-out 0s;
+  // -moz-transition: left 0.3s ease-in-out 0s;
+  // -o-transition: left 0.3s ease-in-out 0s;
+
+}
+
+a.nav-expander:hover {
+  cursor: pointer;
+}
+
+a.nav-expander.fixed {
+  position: fixed;
+}
+
+.nav-expanded a.nav-expander.fixed {
+    // left: 20em;
+}
+
+// Style off canvas menu
+.nav-drawer {
+  background: #2d2f33;
+  display: block;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  left: -20em;
+  font-size: 15px;
+  top: 0;
+  width: 20em;
+  z-index: 100;
+
+  transition: left 0.3s ease-in-out 0s;
+  -webkit-transition: left 0.3s ease-in-out 0s;
+  -moz-transition: left 0.3s ease-in-out 0s;
+  -o-transition: left 0.3s ease-in-out 0s;
+
+}
+.nav-expanded nav {
+  left: 0;
+}
+
+body.nav-expanded {
+  margin-left: 0em;
+  transition: left 0.4s ease-in-out 0s;
+  -webkit-transition: left 0.4s ease-in-out 0s;
+  -moz-transition: left 0.4s ease-in-out 0s;
+  -o-transition: left 0.4s ease-in-out 0s;
+}
+
+#nav-close {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  padding-left: 10px;
+}
+
+// Style menu and animations on hover
+.main-menu {
+  padding-top: 12px;
+}
+
+.main-menu li {
+  border-bottom: 1px solid #323949;
+  margin-left: 20px;
+  font-size: 18px;
+  padding: 12px;
+}
+
+.main-menu li a {
+  color: #6F7D8C;
+  text-decoration: none;
+}
+
+.main-menu li a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.main-menu li .sub-nav {
+  border-bottom: 0px;
+  padding: 4px;
+}
+
+.main-menu a .caret {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  vertical-align: top;
+  border-top: 4px solid #4f5963;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  content: "";
+    margin-top: 8px;
+}
+
+.main-menu a:hover .caret {
+  border-top-color: #4f5963;
+}
+
+.main-menu li.open > a > .caret {
+  border-top: none;
+  border-bottom: 4px solid #4f5963;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+.main-menu li.open > a:hover > .caret {
+  border-bottom-color: #4f5963;
+}
+
+.icon:before {
+  font-family: 'FontAwesome';
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-transform: none;
+  content: '\f105';
+}
+
+.main-menu li > a > span.icon {
+  float: left;
+  margin: 0.1em 1.7em -0.1em 0;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+
+}
+
+.main-menu li > a:hover > span.icon {
+  float: left;
+  margin: 0.1em 0.8em -0.1em 0;
+  opacity: 1;
+}
+
+.visualizer {
+  width: 100%;
 }
