@@ -54,4 +54,11 @@ Rails.application.configure do
 
   # Devise manual configuration
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # enable inline source maps for libsass
+  config.sass.inline_source_maps = true
+
+  # or, if you're using better_errors:
+  # config.middleware.insert_before Rack::Lock, Rack::LiveReload
+  config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
 end
