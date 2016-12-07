@@ -1,0 +1,14 @@
+h2
+  | Upload audio file:
+input[type="file" accept="audio/*;capture=microphone"]
+hr
+.wrapper
+  section.main-controls
+    #buttons
+      form#form[action="/voice_messages" method="post"]
+
+h2
+  | Messages recorded:
+section.sound-clips
+
+= link_to "View messages", voice_messages_path

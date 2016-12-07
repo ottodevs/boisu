@@ -1,0 +1,21 @@
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      <h4 class="modal-title">New voice message</h4>
+    </div>
+    <div class="modal-body">
+      <%= render 'voice_messages/form', voice_message: @voice_message %>
+      <%= link_to 'Back', voice_messages_path %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+
+      <button type="button" class="btn btn-info save" data-dismiss="modal">Save</button>
+    </div>
+  </div>
+
+</div>

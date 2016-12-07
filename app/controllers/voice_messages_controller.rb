@@ -38,13 +38,14 @@ class VoiceMessagesController < ApplicationController
   # POST /voice_messages
   # POST /voice_messages.json
   def create
-    #binding.pry
+    # binding.pry
     @voice_message = VoiceMessage.new(voice_message_params)
 
     respond_to do |format|
       if @voice_message.save
-        # format.html { redirect_to @voice_message, notice: 'Voice message was successfully created.' }
-        # format.json { render :show, status: :created, location: @voice_message }
+        #format.html { redirect_to @voice_message, notice: 'Voice message was successfully created.' }
+        format.html { render nothing: true, status: :ok }
+        format.json { render :show, status: :created, location: @voice_message }
       else
         format.html { render :new }
         format.json { render json: @voice_message.errors, status: :unprocessable_entity }
@@ -80,6 +81,9 @@ class VoiceMessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_voice_message
       @voice_message = VoiceMessage.find(params[:id])
+
+      rescue ActiveRecord::RecordNotFound
+      redirect_to root_url, :flash => { :alert => "Record not found." }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

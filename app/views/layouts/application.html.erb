@@ -30,36 +30,66 @@
         </ul>
       </nav>
 
+      <!-- Our main navigation bar -->
       <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-        <div class="navbar-header pull-left">
-          <a id="nav-expander" class="nav-expander fixed">
-            <!-- <i class="fa fa-bars fa-lg white"></i> -->
-            <div class="wrapper">
-              <svg class="burger" width="30px" height="30px">
-                <line class="top" type="burger" x1="0" y1="1" x2="30" y2="1" />
-                <line class="middle" type="burger" x1="0" y1="12" x2="30" y2="12" />
-                <line class="bottom" type="burger" x1="0" y1="23" x2="30" y2="23" />
-              </svg>
-            </div>
-          </a>
-          <div class="container">
+        <div class="container-fluid">
+
+          <!-- The burger menu -->
+          <div class="pull-left">
+            <a id="nav-expander" class="nav-expander fixed">
+              <!-- <i class="fa fa-bars fa-lg white"></i> -->
+              <div class="wrapper">
+                <svg class="burger" width="30px" height="30px">
+                  <line class="top" type="burger" x1="0" y1="1" x2="30" y2="1" />
+                  <line class="middle" type="burger" x1="0" y1="12" x2="30" y2="12" />
+                  <line class="bottom" type="burger" x1="0" y1="23" x2="30" y2="23" />
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <!-- The branded logo -->
+          <div class="navbar-header">
             <div class="navbar-brand">
               <%= link_to "Boisu", root_path %>!
             </div>
           </div>
+
+          <!-- The right side links -->
+          <!-- <div class="navbar-header pull-right"> -->
+            <ul class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+                <li>
+                  <%= link_to '#' do %>
+                    <i class="fa fa-user-circle-o fa-lg white"></i>
+                    <%= current_user.email %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <i class="fa fa-sign-out fa-lg white"></i>
+                    Sign out
+                  <% end %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to new_user_session_path do %>
+                    <i class="fa fa-sign-in fa-lg white"></i>
+                    Sign in
+                  <% end %>
+                </li>
+<!--                 <li><%= link_to 'Sign up', new_user_registration_path %></li> -->
+              <% end %>
+            </ul>
+          <!--</div> -->
+
         </div>
       </nav>
     </header>
 
           <!--<div id="nabvar-collapse" class="navbar">
             <ul class="nav navbar-nav navbar-right">
-              <% if user_signed_in? %>
-                <li><%= link_to 'My account', '#' %></li>
-                <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-              <% else %>
-                <li><%= link_to 'Log in', new_user_session_path %></li>
-                <li><%= link_to 'Sign up', new_user_registration_path %></li>
-              <% end %>
+
             </ul>
           </div>
         </div>
@@ -74,6 +104,11 @@
         <%= yield %>
       </div>
     </div>
+
+    <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <%= render 'voice_messages/new' %>
+</div>
 
     <footer class="footer navbar-fixed-bottom navbar-inverse">
       <div class="container">
@@ -90,8 +125,7 @@
       </div>
     </footer>
 
-<!-- js stuff -->
-<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
+    <!-- js stuff -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

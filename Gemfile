@@ -63,3 +63,4 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'carrierwave'
 gem 'sassc-rails' # we could have problems with heroku, see gh
+gem 'slim'

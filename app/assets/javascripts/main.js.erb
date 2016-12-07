@@ -1,0 +1,209 @@
+window.blob;
+
+$(document).ready(function () {
+  $('.button').click(function () {
+    $(this).toggleClass('active')
+  })
+
+  burger()
+
+ // Navigation Menu Slider
+  $('#nav-expander').on('click', function (e) {
+    e.preventDefault()
+    $('body').toggleClass('nav-expanded')
+  })
+  $('#nav-close').on('click', function (e) {
+    e.preventDefault()
+    $('body').removeClass('nav-expanded')
+  })
+})
+
+// burger
+function burger () {
+  var control = $('svg')
+  var lines = $('line')
+
+  control.on('click', function () {
+    if (lines.attr('type') == 'burger') {
+      lines.attr('type', 'close')
+    } else {
+      lines.attr('type', 'burger')
+    }
+  })
+}
+
+// Visualizer code
+// visualiser setup - create web audio api context and canvas
+var canvas = document.querySelector('.visualizer')
+var audioCtx = audioCtx || new (window.AudioContext || webkitAudioContext)()
+var canvasCtx = canvas.getContext('2d')
+
+WIDTH = canvas.width
+HEIGHT = canvas.height
+
+var Visualizer =
+class Visualizer {
+  visualize (stream) {
+    var source = audioCtx.createMediaStreamSource(stream)
+
+    var analyser = audioCtx.createAnalyser()
+    analyser.fftSize = 2048
+    var bufferLength = analyser.frequencyBinCount
+    var dataArray = new Uint8Array(bufferLength)
+
+    source.connect(analyser)
+      // analyser.connect(audioCtx.destination);
+
+    draw()
+
+    function draw () {
+      requestAnimationFrame(draw)
+
+      analyser.getByteTimeDomainData(dataArray)
+
+      canvasCtx.fillStyle = 'rgb(200, 200, 200)'
+      canvasCtx.fillRect(0, 0, WIDTH, HEIGHT)
+
+      canvasCtx.lineWidth = 1
+      canvasCtx.strokeStyle = 'rgb(0, 0, 0)'
+
+      canvasCtx.beginPath()
+
+      var sliceWidth = WIDTH * 1.0 / bufferLength
+      var x = 0
+
+      for (var i = 0; i < bufferLength; i++) {
+        var v = dataArray[i] / 128.0
+        var y = v * HEIGHT / 2
+
+        if (i === 0) {
+          canvasCtx.moveTo(x, y)
+        } else {
+          canvasCtx.lineTo(x, y)
+        }
+
+        x += sliceWidth
+      }
+
+      canvasCtx.lineTo(canvas.width, canvas.height / 2)
+      canvasCtx.stroke()
+    }
+  }
+}
+
+// Recorder code
+var Recorder =
+class Recorder {
+  startRecording () {
+    this.chunks = []
+    this.track = []
+    this.visualizer = new Visualizer()
+
+    var constraints = { audio: true }
+    var self = this
+
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then(function (audioStream) {
+      self.visualizer.visualize(audioStream)
+      $('.visualizer').show()
+
+      self.track = audioStream.getTracks()[0] // if only one media track
+
+      self.mediaRecorder = new MediaRecorder(audioStream)
+      self.mediaRecorder.start()
+
+      self.mediaRecorder.ondataavailable = function (event) {
+        self.chunks.push(event.data)
+      }
+
+      self.mediaRecorder.onstop = function (event) {
+        $('.visualizer').hide()
+
+        window.blob = new Blob(self.chunks, { 'type': 'audio/ogg; codecs=opus' })
+        self.chunks = [] // empty the chunks to make it ready for reuse
+        self.track.stop()
+
+        var audioURL = window.URL.createObjectURL(window.blob)
+        $('.audio').attr('src', audioURL)
+
+        var formData = new FormData()
+        formData.append('voice_message[audio]', window.blob)
+        // $.ajax({
+        //   type: 'POST',
+        //   url: '/voice_messages',
+        //   data: formData,
+        //   processData: false,
+        //   contentType: false,
+        //   error: function (xhr, ajaxOptions, thrownError) {
+        //     alert(xhr.status);
+        //     alert(thrownError);
+        //   }
+        // })
+      }
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+  }
+
+  stopRecording () {
+    this.mediaRecorder.stop()
+  }
+}
+
+// Form audio send
+$('.save').click( function(e) {
+  e.preventDefault ()
+
+  // Se utilizar temporalmente variable global para el blob
+  // var myBlob
+
+  // We get the blob from the object url
+  // $.ajax({
+  //   type: 'GET',
+  //   url: $('.audio').attr('src'),
+  //   responseType: 'blob',
+  //   success: function(response) {
+  //     console.log(response)
+  //     myBlob =  new Blob(response, { 'type': 'audio/ogg; codecs=opus' })
+  // })
+
+  // Create the data container for the form
+  var formData = new FormData()
+  formData.append('voice_message[audio]', window.blob)
+  formData.append('voice_message[title]', $('#voice_message_title').val() )
+  formData.append('voice_message[user]', $('.audio').attr('data-user'))
+
+  $.ajax({
+    type: 'POST',
+    url: '/voice_messages',
+    data: formData,
+    processData: false,
+    contentType: false,
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert(xhr.responseText);
+      alert(thrownError);
+    },
+    success: function (response) {
+        //jQuery("#usergrid").trigger("reloadGrid");
+        //clear(); forms
+        alert("Details saved successfully!!!");
+    }
+  })
+//}
+})
+
+// Application code
+var recorder = new Recorder()
+
+$(".record").click(function(){
+  if ($(".record").hasClass("active")) {
+    $('.record').attr('data-toggle', 'modal')
+    $('.record').attr('data-target', '#myModal')
+    recorder.stopRecording()
+  } else {
+    $('.record').removeAttr('data-toggle')
+    $('.record').removeAttr('data-target')
+    recorder.startRecording()
+  }
+})

@@ -1,0 +1,13 @@
+.voice_message
+  h3
+    = voice_message.user
+  = voice_message.title
+  = voice_message.content
+  = audio_tag voice_message.audio, controls: true
+  p.text-right
+    = link_to 'Show', voice_message
+    span &nbsp
+    = link_to 'Edit', edit_voice_message_path(voice_message)
+    span &nbsp
+    = link_to 'Destroy', voice_message, method: :delete, data: { confirm: 'Are you sure?' }
+  hr

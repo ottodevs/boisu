@@ -60,13 +60,17 @@
 
 // Center navbar brand
 .navbar-header {
-    float: left;
+    /* float: left; */
     // padding-left: 15px;
-    text-align: center;
-    width: 100%;
+    /* text-align: center; */
+    /* width: 100%; */
+    position: absolute;
+    left: 50%;
 }
 .navbar-brand {
-  float:none;
+  /* float:none; */
+  position: relative;
+  left: -50%;
   font-size: 26px;
   font-weight: 700;
   letter-spacing: -1px;
@@ -121,6 +125,7 @@ line {
   border: 5px solid #fff;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 100;
 }
 
 .inner {
@@ -336,4 +341,5 @@ body.nav-expanded {
 
 .visualizer {
   width: 100%;
+  height: 5em;
 }
